@@ -1,8 +1,6 @@
 package Game;
-import java.util.Scanner;
 
 public class Player extends Person {
-    Scanner scan = new Scanner(System.in);
     public String toString(){
         String allCards = "";
         for(Card x : startingHand.CardsList()){
