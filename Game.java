@@ -8,6 +8,7 @@ public class Game {
         char contInput;
         char hitStandInput = 'x';
         int winnings;
+        int bjresult = 0;
         Scanner scan = new Scanner(System.in);
         System.out.println("Welcome to Andrew's Blackjack in Java! ");
         System.out.print("To begin playing, type in your starting balance: ");
@@ -50,9 +51,36 @@ public class Game {
             Player player = new Player();
             while((hitStandInput != 'S' && hitStandInput != 's')){
                 System.out.println("--------------------------------------------------------");
-                System.out.println(dealer+"\n");
-                System.out.println();
-                System.out.println(player+"\n\n"+"Do you want to hit (h/H) or Stand (s/S)?: ");
+                System.out.println(dealer+"\n\n");
+                System.out.println(player);
+                System.out.println("\n--------------------------------------------------------");
+                bjresult = player.BJchecker(dealer);
+                switch(bjresult){
+                    case(1):
+                        System.out.println();
+                        dealer.start();
+                        System.out.println("\n" + player);
+                        System.out.println("\nYou got a Blackjack, you win 1.5x!");
+                        balance += winnings+(bet*0.5);
+                        break;
+                    case(-1):
+                        System.out.println();
+                        dealer.start();
+                        System.out.println("\n" + player);
+                        System.out.println("\nThe Dealer has a Blackjack, you lose!");
+                        break;
+                    case(2):
+                        System.out.println();
+                        dealer.start();
+                        System.out.println("\n" + player);
+                        System.out.println("\nBoth of you have a Blackjack, you tied");
+                        balance+=bet;
+                        break;
+                }
+                if(bjresult != 0){
+                    break;
+                }
+                System.out.println("\n"+"Do you want to hit (h/H) or Stand (s/S)?: ");
                 System.out.println("--------------------------------------------------------");
                 hitStandInput = scan.next().charAt(0);
                 scan.nextLine();
@@ -65,29 +93,35 @@ public class Game {
             }
             hitStandInput = 'a';
             System.out.println("--------------------------------------------------------");
-            dealer.start();
-            System.out.println(player);
-            if(player.startingHand.checkBust()){
-                System.out.print("\nYou Busted, you lost "+bet+" dollars\n");
-            }else if(dealer.startingHand.checkBust()){
-                System.out.print("\nThe Dealer Busted, you win "+winnings+" dollars!");
-                balance+=(bet*2);
-            }else if(dealer.greaterThan(player)){
-                System.out.print("\nThe dealer has a higher hand, you lost "+bet+" dollars");
-            }else{
-                System.out.print("\nYou have a higher hand, you win "+winnings+" dollars!");
-                balance+=(bet*2);
+            while (bjresult == 0) {
+                dealer.start();
+                System.out.println("\n" + player);
+                if (player.startingHand.checkBust()) {
+                    System.out.print("\nYou busted, you lost " + bet + " dollars\n");
+                } else if (dealer.startingHand.checkBust()) {
+                    System.out.print("\nThe Dealer busted, you win " + winnings + " dollars!");
+                    balance += (bet * 2);
+                } else if (dealer.greaterThan(player)) {
+                    System.out.print("\nThe dealer has a higher hand, you lost " + bet + " dollars");
+                }else if(dealer.equalTo(player)){
+                    System.out.println("\nYou both have the same value, you tied");
+                    balance += bet;
+                }else{
+                    System.out.print("\nYou have a higher hand, you win " + winnings + " dollars!");
+                    balance += winnings;
+                }
+                bjresult = -2;
             }
             System.out.print("\n--------------------------------------------------------");
             if(balance <= 0 ){
-                System.out.println("\nYou lost all your money, Game Over!");
+                System.out.println("\nYou have no more money, Game Over!");
                 break;
             }
             System.out.println("\nYour Total balance: "+balance);
-            System.out.print("\n\nDo you want to play another round? (Enter 'x/X' if you don't want to continue)");
+            System.out.print("\n\nDo you want to play another round? (Enter 'x/X' if you don't want to continue):");
             contInput = scan.next().charAt(0);
             }while(contInput != 'X' && contInput != 'x');
-        System.out.println("Thanks for playing my blackjack project!");
+        System.out.println("Thanks for playing Andrew's blackjack project!");
         }
     }
 

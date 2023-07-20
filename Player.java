@@ -8,5 +8,6 @@ public class Player extends Person {
         }
         return "Your hand has a total value of "+startingHand.getTotalValue()+" with cards "+allCards;
     }
+
 }
 
