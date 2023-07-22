@@ -49,37 +49,37 @@ public class Game {
             }
             Dealer dealer = new Dealer();
             Player player = new Player();
+            bjresult = player.BJchecker(dealer);
+            switch(bjresult){
+                case(1):
+                    System.out.println(dealer+"\n\n");
+                    dealer.start();
+                    System.out.println("\n" + player);
+                    System.out.println("\nYou got a Blackjack, you win 1.5x!");
+                    balance += winnings+(bet*0.5);
+                    break;
+                case(-1):
+                    System.out.println(dealer+"\n\n");
+                    dealer.start();
+                    System.out.println("\n" + player);
+                    System.out.println("\nThe Dealer has a Blackjack, you lose!");
+                    break;
+                case(2):
+                    System.out.println(dealer+"\n\n");
+                    dealer.start();
+                    System.out.println("\n" + player);
+                    System.out.println("\nBoth of you have a Blackjack, you tied");
+                    balance+=bet;
+                    break;
+            }
             while((hitStandInput != 'S' && hitStandInput != 's')){
+                if(bjresult != 0){
+                    break;
+                }
                 System.out.println("--------------------------------------------------------");
                 System.out.println(dealer+"\n\n");
                 System.out.println(player);
                 System.out.println("\n--------------------------------------------------------");
-                bjresult = player.BJchecker(dealer);
-                switch(bjresult){
-                    case(1):
-                        System.out.println();
-                        dealer.start();
-                        System.out.println("\n" + player);
-                        System.out.println("\nYou got a Blackjack, you win 1.5x!");
-                        balance += winnings+(bet*0.5);
-                        break;
-                    case(-1):
-                        System.out.println();
-                        dealer.start();
-                        System.out.println("\n" + player);
-                        System.out.println("\nThe Dealer has a Blackjack, you lose!");
-                        break;
-                    case(2):
-                        System.out.println();
-                        dealer.start();
-                        System.out.println("\n" + player);
-                        System.out.println("\nBoth of you have a Blackjack, you tied");
-                        balance+=bet;
-                        break;
-                }
-                if(bjresult != 0){
-                    break;
-                }
                 System.out.println("\n"+"Do you want to hit (h/H) or Stand (s/S)?: ");
                 System.out.println("--------------------------------------------------------");
                 hitStandInput = scan.next().charAt(0);
