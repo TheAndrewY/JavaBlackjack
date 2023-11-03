@@ -91,6 +91,7 @@ public class Game {
                     }
                 }
             }
+            player.startingHand.clearAce();
             hitStandInput = 'a';
             System.out.println("--------------------------------------------------------");
             while (bjresult == 0) {

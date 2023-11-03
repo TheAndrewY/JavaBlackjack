@@ -41,6 +41,9 @@ public class Hand {
             }
         }
     }
+    public void clearAce(){
+        checkedAce = false;
+    }
     public String toString(){
         String list = "";
         for(Card x : cards){
