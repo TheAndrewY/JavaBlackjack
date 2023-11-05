@@ -1,6 +1,6 @@
 # Java Blackjack Console Application
 
-This is a simple console-based Blackjack game implemented in Java. It serves as a project to test and reinforce your knowledge of Java's Object-Oriented Programming (OOP) concepts.
+This is a simple console-based Blackjack game implemented in Java. It served as a project to test and reinforce my knowledge of Java's Object-Oriented Programming (OOP) concepts.
 
 ## Features
 
